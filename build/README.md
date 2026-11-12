@@ -1,7 +1,7 @@
 Release Instructions
 ===
 
-These instructions guide the release process for new official Nakama server builds.
+These instructions guide the release process for new SadSha Game Server builds.
 
 ## Steps
 
@@ -31,7 +31,7 @@ These steps are run for each new release.
 
    ```
    git add CHANGELOG.md
-   git commit -m "Nakama 2.1.0 release."
+   git commit -m "SadSha Game Server 2.1.0 release."
    git tag -a v2.1.0 -m "v2.1.0"
    git push origin v2.1.0 master
    ```
@@ -39,7 +39,7 @@ These steps are run for each new release.
 3. Execute the cross-compiled build helper.
 
    ```
-   xgo --targets=darwin/arm64,darwin/amd64,linux/amd64,linux/arm64,windows/amd64 --trimpath --ldflags "-s -w -X main.version=2.1.0 -X main.commitID=$(git rev-parse --short HEAD 2>/dev/null)" github.com/heroiclabs/nakama
+   xgo --targets=darwin/arm64,darwin/amd64,linux/amd64,linux/arm64,windows/amd64 --trimpath --ldflags "-s -w -X main.version=2.1.0 -X main.commitID=$(git rev-parse --short HEAD 2>/dev/null)" github.com/fnjlabs-arch/nakama
    ```
 
    This will build binaries for all target platforms supported officially by Heroic Labs.
@@ -52,7 +52,7 @@ These steps are run for each new release.
 
 5. Create a new draft release on GitHub and publish it with the compressed bundles.
 
-## Build Nakama Image
+## Build SadSha Game Server Image
 
 With the release generated we can create the official container image.
 
@@ -77,10 +77,10 @@ These steps are run for each new release.
 
    ```
    cd build
-   docker buildx build . --platform linux/amd64,linux/arm64 --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t heroiclabs/nakama:2.1.0 -t heroiclabs/nakama:latest --push
+   docker buildx build . --platform linux/amd64,linux/arm64 --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t fnjlabs-arch/nakama:2.1.0 -t fnjlabs-arch/nakama:latest --push
    ```
 
-## Build Nakama Image (dSYM)
+## Build SadSha Game Server Image (dSYM)
 
 With the release generated we can also create an official container image which includes debug symbols.
 
@@ -94,7 +94,7 @@ With the release generated we can also create an official container image which 
 
    ```
    cd build
-   docker buildx build "$PWD" --platform linux/amd64,linux/arm64 --file ./Dockerfile.dsym --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t heroiclabs/nakama-dsym:2.1.0 -t heroiclabs/nakama-dsym:latest --push
+   docker buildx build "$PWD" --platform linux/amd64,linux/arm64 --file ./Dockerfile.dsym --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t fnjlabs-arch/nakama-dsym:2.1.0 -t fnjlabs-arch/nakama-dsym:latest --push
    ```
 
 ## Build Plugin Builder Image
@@ -111,7 +111,7 @@ With the official release image generated we can create a container image to hel
 
    ```
    cd build/pluginbuilder
-   docker buildx build "$PWD" --platform linux/amd64,linux/arm64 --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t heroiclabs/nakama-pluginbuilder:2.1.0 -t heroiclabs/nakama-pluginbuilder:latest --push
+   docker buildx build "$PWD" --platform linux/amd64,linux/arm64 --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t fnjlabs-arch/nakama-pluginbuilder:2.1.0 -t fnjlabs-arch/nakama-pluginbuilder:latest --push
    ```
 
 ## Build all images with provided script.

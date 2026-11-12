@@ -1,4 +1,4 @@
-# Nakama Go Runtime
+# SadSha Game Server Go Runtime
 
 The game server includes support to develop native code in Go with the [plugin](https://golang.org/pkg/plugin/) package from the Go stdlib. It's used to enable compiled shared objects to be loaded by the game server at startup.
 
@@ -68,7 +68,7 @@ In a regular development cycle you will often recompile your plugin code and rer
     ./nakama --runtime.path "$HOME/plugin_code"
     ```
 
-   __TIP__: You can either build and run Nakama from source or you can download a prebuilt binary for your platform [here](https://github.com/heroiclabs/nakama/releases).
+   __TIP__: You can either build and run Nakama from source or you can download a prebuilt binary for your platform [here](https://github.com/fnjlabs-arch/nakama/releases).
 
 For more information on how the server loads modules have a look at [these](https://heroiclabs.com/docs/runtime-code-basics/#load-modules) docs. For general instructions on how to run the server give [these](https://heroiclabs.com/docs/install-start-server/#start-nakama) docs a read.
 
@@ -82,7 +82,7 @@ For Windows development and environments where you want to use our official Dock
 
     ```bash
     cd "$HOME/plugin_code" # Your project folder. See instructions above.
-    docker run --rm -w "/builder" -v "${PWD}:/builder" heroiclabs/nakama-pluginbuilder:3.12.0 build -buildmode=plugin -trimpath -o ./modules/plugin_code.so
+    docker run --rm -w "/builder" -v "${PWD}:/builder" fnjlabs-arch/nakama-pluginbuilder:3.12.0 build -buildmode=plugin -trimpath -o ./modules/plugin_code.so
     ```
 
    In the command above we bind-mount your current folder into the container and use the Go toolchain inside it to run the build. The output artifacts are written back into your host filesystem.
@@ -97,10 +97,10 @@ For Windows development and environments where you want to use our official Dock
 
    By default the server will be started and look in a folder relative to the current dir called "./modules" to load the plugins.
 
-   __TIP__: Use the same version of your plugin builder image as used in the Docker Compose file for the server version. i.e. "heroiclabs/nakama:2.3.1" <> "heroiclabs/nakama-pluginbuilder:2.3.1",  etc.
+   __TIP__: Use the same version of your plugin builder image as used in the Docker Compose file for the server version. i.e. "fnjlabs-arch/nakama:2.3.1" <> "fnjlabs-arch/nakama-pluginbuilder:2.3.1",  etc.
 
 ## Bigger Example
 
 Have a look in this repo for more example code on how to create and use various parts of the game server Go runtime support. The project implements a fully authoritative example of tic-tac-toe in Go, Lua and TS.
 
-https://github.com/heroiclabs/nakama-project-template
+https://github.com/fnjlabs-arch/nakama-project-template
